@@ -6,11 +6,35 @@
 
 size_t _get_quadratic_capacity(size_t prev_capacity);
 
+array* new_array(size_t type_size) {
+    array* new_arr = malloc(sizeof(array));
+    new_arr->body = (byte *)calloc(INIT_CAPACITY_LENGTH, type_size);
+    new_arr->capacity = INIT_CAPACITY_LENGTH;
+    new_arr->length = 0;
+    new_arr->type_size = type_size;
+
+    return new_arr;
+}
+
 void* array_get(array* arr, size_t index) {
     if (arr->length <= index)
         return NULL;
 
     return arr->body + index * arr->type_size;
+}
+
+void* array_at(array* arr, size_t index) {
+    return array_get(arr, index);
+}
+
+void* array_front(array* arr) {
+    // 첫번째 원소를 참조합니다.
+    return array_get(arr, 0);
+}
+
+void* array_back(array* arr) {
+    // 마지막 원소를 참조합니다.
+    return array_get(arr, arr->length - 1);
 }
 
 bool array_set(array* arr, size_t index, void* element) {
@@ -30,25 +54,28 @@ bool array_set(array* arr, size_t index, void* element) {
     return true;
 }
 
-bool array_new(array** arr, size_t type_size) {
-    array* new_arr = malloc(sizeof(array));
-    new_arr->body = (byte *)calloc(INIT_BODY_LENGTH, type_size);
-    new_arr->capacity = INIT_BODY_LENGTH;
-    new_arr->length = 0;
-    new_arr->type_size = type_size;
 
-    *arr = new_arr;
-    return true;
+bool array_push_back(array* arr, void* element) {
+    return array_set(arr, arr->length++, element);
 }
 
-array* new_array(size_t type_size) {
-    array* new_arr = malloc(sizeof(array));
-    new_arr->body = (byte *)calloc(INIT_BODY_LENGTH, type_size);
-    new_arr->capacity = INIT_BODY_LENGTH;
-    new_arr->length = 0;
-    new_arr->type_size = type_size;
+void* array_pop_back(array* arr) {
+    if (arr->length == 0)
+        return NULL;
 
-    return new_arr;
+    return array_get(arr, --arr->length);
+}
+
+bool array_clear(array* arr) {
+    /**
+        - clear every elements to zero
+        - set length to zero
+        - keep memory allocated (capacity doesn't change)
+    */
+    arr->length = 0;
+    memset(arr->body, 0x00, arr->type_size * arr->capacity);
+
+    return true;
 }
 
 bool array_has(array* arr, void* element) {
