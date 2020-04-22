@@ -6,7 +6,7 @@ c++의 stl을 c에서 구현한 라이브러리
 
 ## vector functions
 
- - [`new_array`](#new_array) (`array* new_array(size_t type_size)`) 메모리를 생성한다. 초기에 capacity는 128을 갖는다.
+ - [`new_array`](#new_array) (array* new_array(size_t `type_size`)) 메모리를 생성한다. 초기에 capacity는 128을 갖는다.
  - [`destroy`](#array_destroy) (`bool array_destroy(array* arr)`) 메모리 해재
  - [`get`](#array_get) (`void* array_get(array* arr, size_t index)`) index번째 원소를 참조한다. 메모리가 할당되지 않은 영역은 NULL을 참조하게 된다.
  - [`at`](#array_at) (`void* array_at(array* arr, size_t index)`) index번째 원소를 참조한다. 메모리가 할당되지 않은 영역은 NULL을 참조하게 된다.
