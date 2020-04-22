@@ -9,8 +9,10 @@ typedef struct _stack {
 } stack;
 
 stack* new_stack(size_t type_size);
-bool stack_push(stack* v, void* element);
-void* stack_pop(stack* v);
-bool stack_empty(stack* v);
+bool stack_destroy(stack* s);
+
+bool stack_push(stack* s, void* element);
+void* stack_pop(stack* s);
+bool stack_empty(stack* s);
 
 #endif /* __STACK_H__ */

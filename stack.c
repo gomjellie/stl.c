@@ -1,24 +1,31 @@
 #include "stack.h"
 
 stack* new_stack(size_t type_size) {
-    stack* new_v = (stack*) malloc(sizeof(stack));
-    new_v->s_body = new_array(type_size);
-    new_v->length = 0;
+    stack* new_s = (stack*) malloc(sizeof(stack));
+    new_s->s_body = new_array(type_size);
+    new_s->length = 0;
 
-    return new_v;
+    return new_s;
 }
 
-bool stack_push(stack* v, void* element) {
-    return array_set(v->s_body, v->length++, element);
+bool stack_destroy(stack* s) {
+    array_destroy(s->s_body);
+    free(s);
+
+    return true;
 }
 
-void* stack_pop(stack* v) {
-    if (v->length == 0)
+bool stack_push(stack* s, void* element) {
+    return array_set(s->s_body, s->length++, element);
+}
+
+void* stack_pop(stack* s) {
+    if (s->length == 0)
         return NULL;
 
-    return array_get(v->s_body, --v->length);
+    return array_get(s->s_body, --s->length);
 }
 
-bool stack_empty(stack* v) {
-    return v->length == 0;
+bool stack_empty(stack* s) {
+    return s->length == 0;
 }

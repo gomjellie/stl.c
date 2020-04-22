@@ -24,7 +24,7 @@ bool array_set(array* arr, size_t index, void* element) {
         arr->body = new_body;
         arr->length = new_length;
     }
-    
+
     memcpy((void *)arr->body + index * ts, element, ts);
     return true;
 }
@@ -46,6 +46,13 @@ array* new_array(size_t type_size) {
     new_arr->type_size = type_size;
 
     return new_arr;
+}
+
+bool array_destroy(array* arr) {
+    free(arr->body);
+    free(arr);
+
+    return true;
 }
 
 /**
