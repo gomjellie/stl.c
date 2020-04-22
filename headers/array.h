@@ -28,7 +28,8 @@ bool array_push_back(array* arr, void* element);
 void* array_pop_back(array* arr);
 bool array_clear(array* arr);
 
+bool array_empty(array* arr);
 bool array_has(array* arr, void* element);
-int array_find(array* arr, void* element);
+int array_index(array* arr, void* element);
 
 #endif /* __ARRAY_H__ */

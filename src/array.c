@@ -20,7 +20,7 @@ void* array_get(array* arr, size_t index) {
     if (arr->length <= index)
         return NULL;
 
-    return arr->body + index * arr->type_size;
+    return arr->body + index * arr->type_size; // 편의상 문제를 일단 남겨둠
 }
 
 void* array_at(array* arr, size_t index) {
@@ -78,6 +78,11 @@ bool array_clear(array* arr) {
     return true;
 }
 
+bool array_empty(array* arr) {
+    return arr->length == 0;
+}
+
+
 bool array_has(array* arr, void* element) {
     for (int i = 0; i < arr->length; i++) {
         void* a_i = array_get(arr, i);
@@ -90,7 +95,7 @@ bool array_has(array* arr, void* element) {
     return false;
 }
 
-int array_find(array* arr, void* element) {
+int array_index(array* arr, void* element) {
     for (int i = 0; i < arr->length; i++) {
         void* a_i = array_get(arr, i);
         int cmp = memcmp(a_i, element, arr->type_size);
