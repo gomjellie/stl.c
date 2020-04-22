@@ -13,9 +13,8 @@ bool stack_push(stack* v, void* element) {
 }
 
 void* stack_pop(stack* v) {
-    if (v->length == 0) {
+    if (v->length == 0)
         return NULL;
-    }
 
     return array_get(v->s_body, --v->length);
 }
