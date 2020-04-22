@@ -5,4 +5,6 @@ typedef enum _bool {
     true = 1,
 } bool;
 
+typedef char byte;
+
 #endif /* __COMMON_H__ */

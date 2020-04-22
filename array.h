@@ -5,8 +5,6 @@ enum array_default {
     INIT_BODY_LENGTH = 128,
 };
 
-typedef char byte;
-
 struct _array {
     size_t length;
     size_t type_size;
