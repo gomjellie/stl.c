@@ -24,6 +24,7 @@ bool array_set(array* arr, size_t index, void* element) {
 
         free(arr->body);
         arr->body = new_body;
+        arr->length = new_length;
         memcpy(arr->body + index * ts, element, ts);
         return true;
     }
@@ -33,7 +34,8 @@ bool array_set(array* arr, size_t index, void* element) {
 
 bool array_new(array** arr, size_t type_size) {
     array* new_arr = malloc(sizeof(array));
-    new_arr->body = (byte *)malloc(INIT_BODY_LENGTH * type_size);
+    new_arr->body = (byte *)calloc(INIT_BODY_LENGTH, type_size);
+    new_arr->length = INIT_BODY_LENGTH;
     new_arr->type_size = type_size;
 
     *arr = new_arr;
