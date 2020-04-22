@@ -69,7 +69,7 @@ index번째 원소를 참조한다. 메모리가 할당되지 않은 영역은 N
 
 Usage:
 ```c
-int *ret = array_get(v, 10); // int ret = v[10];
+int *ret = array_at(v, 10); // int ret = v[10];
 
 if (ret == NULL) return 0; // if index is out of boundary
 printf("%d", *ret); // cout << ret
