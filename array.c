@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <stdio.h>
 #include "array.h"
 
 size_t _get_quadratic_length(size_t prev_length);
@@ -26,17 +27,16 @@ bool array_set(array* arr, size_t index, void* element) {
         memcpy(arr->body + index * ts, element, ts);
         return true;
     }
-
-    memcpy(arr->body + index * ts, element, ts);
+    memcpy((void *)arr->body + index * ts, element, ts);
     return true;
 }
 
-bool array_new(array* arr, size_t type_size) {
-    arr = malloc(sizeof(array));
+bool array_new(array** arr, size_t type_size) {
+    array* new_arr = malloc(sizeof(array));
+    new_arr->body = (byte *)malloc(INIT_BODY_LENGTH * type_size);
+    new_arr->type_size = type_size;
 
-    arr->body = (byte *)malloc(INIT_BODY_LENGTH * type_size);
-    arr->type_size = type_size;
-
+    *arr = new_arr;
     return true;
 }
 
