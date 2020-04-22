@@ -23,10 +23,10 @@ bool array_set(array* arr, size_t index, void* element) {
 
         free(arr->body);
         arr->body = new_body;
-        arr->length = MAX(arr->length, index + 1);
         arr->capacity = new_capacity;
     }
 
+    arr->length = MAX(arr->length, index + 1);
     memcpy((void *)arr->body + index * ts, element, ts);
     return true;
 }
@@ -50,6 +50,19 @@ array* new_array(size_t type_size) {
     new_arr->type_size = type_size;
 
     return new_arr;
+}
+
+bool array_has(array* arr, void* element) {
+    for (int i = 0; i < arr->length; i++) {
+        void* a_i = array_get(arr, i);
+        int cmp = memcmp(a_i, element, arr->type_size);
+        // cmp == 0 when they match
+        if (!cmp) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 bool array_destroy(array* arr) {

@@ -5,6 +5,7 @@
 int main() {
     array* arr = new_array(sizeof(int));
     int elem = 10;
+    int nine = 9, ten = 10;
     int* res;
     array_set(arr, 0, &elem);
     array_set(arr, 130, &elem);
@@ -26,4 +27,8 @@ int main() {
     arr = new_array(sizeof(int));
     array_set(arr, 128, &elem);
 
+    bool has_9 = array_has(arr, &nine);
+    bool has_10 = array_has(arr, &ten);
+    printf("nine?: %d\n", has_9);
+    printf("ten?: %d\n", has_10);
 }
