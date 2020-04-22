@@ -8,24 +8,24 @@ stack* new_stack(size_t type_size) {
     return new_s;
 }
 
-bool stack_destroy(stack* s) {
-    vector_destroy(s->s_buff);
-    free(s);
+bool stack_destroy(stack* this) {
+    vector_destroy(this->s_buff);
+    free(this);
 
     return true;
 }
 
-bool stack_push(stack* s, void* element) {
-    return vector_set(s->s_buff, s->length++, element);
+bool stack_push(stack* this, void* element) {
+    return vector_set(this->s_buff, this->length++, element);
 }
 
-void* stack_pop(stack* s) {
-    if (s->length == 0)
+void* stack_pop(stack* this) {
+    if (this->length == 0)
         return NULL;
 
-    return vector_get(s->s_buff, --s->length);
+    return vector_get(this->s_buff, --this->length);
 }
 
-bool stack_empty(stack* s) {
-    return s->length == 0;
+bool stack_empty(stack* this) {
+    return this->length == 0;
 }
