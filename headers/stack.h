@@ -3,7 +3,7 @@
 #ifndef __STACK_H__
 
 typedef struct _stack {
-    vector* s_body;
+    vector* s_buff;
 
     size_t length;
 } stack;
