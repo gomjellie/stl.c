@@ -2,18 +2,22 @@
 #include "common.h"
 
 enum array_default {
-    INIT_BODY_LENGTH = 100,
+    INIT_BODY_LENGTH = 128,
 };
 
+typedef char byte;
+
 struct _array {
-    int length;
-    void* body;
+    size_t length;
+    size_t type_size;
+
+    byte* body;
 };
 
 typedef struct _array array;
 
-void* array_get(array* arr, int index);
-void* array_set(array* arr, int index, void* val);
-bool array_new(array* arr, int type_size);
+void* array_get(array* arr, size_t index);
+bool array_set(array* arr, size_t index, void* element);
+bool array_new(array* arr, size_t type_size);
 
 #endif /* __ARRAY_H__ */
