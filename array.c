@@ -42,6 +42,15 @@ bool array_new(array** arr, size_t type_size) {
     return true;
 }
 
+array* new_array(size_t type_size) {
+    array* new_arr = malloc(sizeof(array));
+    new_arr->body = (byte *)calloc(INIT_BODY_LENGTH, type_size);
+    new_arr->length = INIT_BODY_LENGTH;
+    new_arr->type_size = type_size;
+
+    return new_arr;
+}
+
 /**
     아래의 함수들은 array.h를 통해서 인터페이스가 제공되지 않는 함수들임.
 */
