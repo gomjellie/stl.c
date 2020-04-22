@@ -18,7 +18,7 @@ c++의 stl을 c에서 구현한 라이브러리
  - [`clear`](#array_clear) (`bool array_clear(array* arr)`)
  - [`empty`](#array_empty) (`bool array_empty(array* arr)`)
  - [`has`](#array_has) (`bool array_has(array* arr, void* element)`)
- - [`find'](#array_find) (`int array_find(array* arr, void* element)`)
+ - [`index'](#array_index) (`int array_index(array* arr, void* element)`)
 
 ## vector memeber variables
 
