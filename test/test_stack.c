@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "stack.h"
+#include "headers/stack.h"
 
 int main() {
     stack* s = new_stack(sizeof(int));

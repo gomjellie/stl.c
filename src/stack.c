@@ -1,4 +1,4 @@
-#include "stack.h"
+#include "headers/stack.h"
 
 stack* new_stack(size_t type_size) {
     stack* new_s = (stack*) malloc(sizeof(stack));

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "array.h"
+#include "headers/array.h"
 
 int main() {
     array* arr = new_array(sizeof(int));

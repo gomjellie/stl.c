@@ -2,7 +2,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
-#include "array.h"
+#include "headers/array.h"
 
 size_t _get_quadratic_capacity(size_t prev_capacity);
 
