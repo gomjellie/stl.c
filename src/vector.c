@@ -28,12 +28,10 @@ void* vector_at(vector* this, size_t index) {
 }
 
 void* vector_front(vector* this) {
-    // 첫번째 원소를 참조합니다.
     return vector_get(this, 0);
 }
 
 void* vector_back(vector* this) {
-    // 마지막 원소를 참조합니다.
     return vector_get(this, this->length - 1);
 }
 

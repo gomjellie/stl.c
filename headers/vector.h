@@ -6,15 +6,13 @@ enum vector_default {
     INIT_CAPACITY_LENGTH = 128,
 };
 
-struct _vector {
+typedef struct _vector {
     size_t length;
     size_t capacity;
     size_t template_size;
 
     byte* v_buff;
-};
-
-typedef struct _vector vector;
+} vector;
 
 vector* new_vector(size_t template_size);
 bool vector_destroy(vector* this);
