@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "stack.h"
 
 stack* new_stack(size_t type_size) {
@@ -15,7 +14,7 @@ bool stack_push(stack* v, void* element) {
 
 void* stack_pop(stack* v) {
     if (v->length == 0) {
-        perror("stack error: stack is empty"); exit(1);
+        return NULL;
     }
 
     return array_get(v->s_body, --v->length);
