@@ -8,7 +8,7 @@ size_t _get_quadratic_capacity(size_t prev_capacity);
 
 vector* new_vector(size_t type_size) {
     vector* new_this = malloc(sizeof(vector));
-    new_this->body = (byte *)calloc(INIT_CAPACITY_LENGTH, type_size);
+    new_this->v_buff = (byte *)calloc(INIT_CAPACITY_LENGTH, type_size);
     new_this->capacity = INIT_CAPACITY_LENGTH;
     new_this->length = 0;
     new_this->type_size = type_size;
@@ -20,7 +20,7 @@ void* vector_get(vector* this, size_t index) {
     if (this->length <= index)
         return NULL;
 
-    return this->body + index * this->type_size; // 편의상 문제를 일단 남겨둠
+    return this->v_buff + index * this->type_size; // 편의상 문제를 일단 남겨둠
 }
 
 void* vector_at(vector* this, size_t index) {
@@ -39,18 +39,18 @@ void* vector_back(vector* this) {
 
 bool vector_set(vector* this, size_t index, void* element) {
     size_t ts = this->type_size;
-    if (this->capacity <= index) { // expand body
+    if (this->capacity <= index) { // expand v_buff
         size_t new_capacity = _get_quadratic_capacity(index);
-        byte* new_body = (byte *)calloc(new_capacity, ts);
-        memcpy(new_body, this->body, this->length * ts);
+        byte* new_buff = (byte *)calloc(new_capacity, ts);
+        memcpy(new_buff, this->v_buff, this->length * ts);
 
-        free(this->body);
-        this->body = new_body;
+        free(this->v_buff);
+        this->v_buff = new_buff;
         this->capacity = new_capacity;
     }
 
     this->length = MAX(this->length, index + 1);
-    memcpy((void *)this->body + index * ts, element, ts);
+    memcpy((void *)this->v_buff + index * ts, element, ts);
     return true;
 }
 
@@ -73,7 +73,7 @@ bool vector_clear(vector* this) {
         - keep memory allocated (capacity doesn't change)
     */
     this->length = 0;
-    memset(this->body, 0x00, this->type_size * this->capacity);
+    memset(this->v_buff, 0x00, this->type_size * this->capacity);
 
     return true;
 }
@@ -108,7 +108,7 @@ int vector_index(vector* this, void* element) {
 }
 
 bool vector_destroy(vector* this) {
-    free(this->body);
+    free(this->v_buff);
     free(this);
 
     return true;

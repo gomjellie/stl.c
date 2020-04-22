@@ -11,7 +11,7 @@ struct _vector {
     size_t capacity;
     size_t type_size;
 
-    byte* body;
+    byte* v_buff;
 };
 
 typedef struct _vector vector;
