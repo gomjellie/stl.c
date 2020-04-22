@@ -9,7 +9,7 @@ typedef struct _stack {
     size_t length;
 } stack;
 
-stack* new_stack(size_t type_size);
+stack* new_stack(size_t template_size);
 bool stack_destroy(stack* this);
 
 bool stack_push(stack* this, void* element);

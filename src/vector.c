@@ -6,12 +6,12 @@
 
 size_t _get_quadratic_capacity(size_t prev_capacity);
 
-vector* new_vector(size_t type_size) {
+vector* new_vector(size_t template_size) {
     vector* new_this = malloc(sizeof(vector));
-    new_this->v_buff = (byte *)calloc(INIT_CAPACITY_LENGTH, type_size);
+    new_this->v_buff = (byte *)calloc(INIT_CAPACITY_LENGTH, template_size);
     new_this->capacity = INIT_CAPACITY_LENGTH;
     new_this->length = 0;
-    new_this->type_size = type_size;
+    new_this->template_size = template_size;
 
     return new_this;
 }
@@ -20,7 +20,7 @@ void* vector_get(vector* this, size_t index) {
     if (this->length <= index)
         return NULL;
 
-    return this->v_buff + index * this->type_size; // 편의상 문제를 일단 남겨둠
+    return this->v_buff + index * this->template_size; // 편의상 문제를 일단 남겨둠
 }
 
 void* vector_at(vector* this, size_t index) {
@@ -38,7 +38,7 @@ void* vector_back(vector* this) {
 }
 
 bool vector_set(vector* this, size_t index, void* element) {
-    size_t ts = this->type_size;
+    size_t ts = this->template_size;
     if (this->capacity <= index) { // expand v_buff
         size_t new_capacity = _get_quadratic_capacity(index);
         byte* new_buff = (byte *)calloc(new_capacity, ts);
@@ -73,7 +73,7 @@ bool vector_clear(vector* this) {
         - keep memory allocated (capacity doesn't change)
     */
     this->length = 0;
-    memset(this->v_buff, 0x00, this->type_size * this->capacity);
+    memset(this->v_buff, 0x00, this->template_size * this->capacity);
 
     return true;
 }
@@ -86,7 +86,7 @@ bool vector_empty(vector* this) {
 bool vector_has(vector* this, void* element) {
     for (int i = 0; i < this->length; i++) {
         void* a_i = vector_get(this, i);
-        int cmp = memcmp(a_i, element, this->type_size);
+        int cmp = memcmp(a_i, element, this->template_size);
         // cmp == 0 when they match
         if (!cmp)
             return true;
@@ -98,7 +98,7 @@ bool vector_has(vector* this, void* element) {
 int vector_index(vector* this, void* element) {
     for (int i = 0; i < this->length; i++) {
         void* a_i = vector_get(this, i);
-        int cmp = memcmp(a_i, element, this->type_size);
+        int cmp = memcmp(a_i, element, this->template_size);
         // cmp == 0 when they match
         if (!cmp) 
             return i;

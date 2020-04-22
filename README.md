@@ -6,7 +6,7 @@ c++의 stl을 c에서 구현한 라이브러리
 
 ## vector functions
 
- - [`new_vector`](#new_vector) (vector* new_vector(size_t `type_size`)) 메모리를 생성한다. 초기에 capacity는 128을 갖는다.
+ - [`new_vector`](#new_vector) (vector* new_vector(size_t `template_size`)) 메모리를 생성한다. 초기에 capacity는 128을 갖는다.
  - [`destroy`](#vector_destroy) (`bool vector_destroy(vector* this)`) 메모리 해재
  - [`get`](#vector_get) (`void* vector_get(vector* this, size_t index)`) index번째 원소를 참조한다. 메모리가 할당되지 않은 영역은 NULL을 참조하게 된다.
  - [`at`](#vector_at) (`void* vector_at(vector* this, size_t index)`) index번째 원소를 참조한다. 메모리가 할당되지 않은 영역은 NULL을 참조하게 된다.
@@ -24,11 +24,11 @@ c++의 stl을 c에서 구현한 라이브러리
 
  - `length` (`size_t`) 
  - `capacity` (`size_t`)
- - `type_size` (`size_t`)
+ - `template_size` (`size_t`)
 
 ## new_vector
 
-Prototype: `vector* new_vector(size_t type_size);`
+Prototype: `vector* new_vector(size_t template_size);`
 
 메모리를 생성한다. 초기에 capacity는 128을 갖는다.
 

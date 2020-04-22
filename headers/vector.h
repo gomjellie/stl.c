@@ -9,14 +9,14 @@ enum vector_default {
 struct _vector {
     size_t length;
     size_t capacity;
-    size_t type_size;
+    size_t template_size;
 
     byte* v_buff;
 };
 
 typedef struct _vector vector;
 
-vector* new_vector(size_t type_size);
+vector* new_vector(size_t template_size);
 bool vector_destroy(vector* this);
 
 void* vector_get(vector* this, size_t index);

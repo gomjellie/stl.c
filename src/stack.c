@@ -1,8 +1,8 @@
 #include "headers/stack.h"
 
-stack* new_stack(size_t type_size) {
+stack* new_stack(size_t template_size) {
     stack* new_s = (stack*) malloc(sizeof(stack));
-    new_s->s_buff = new_vector(type_size);
+    new_s->s_buff = new_vector(template_size);
     new_s->length = 0;
 
     return new_s;
