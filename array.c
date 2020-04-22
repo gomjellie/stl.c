@@ -16,7 +16,6 @@ void* array_get(array* arr, size_t index) {
 bool array_set(array* arr, size_t index, void* element) {
     size_t ts = arr->type_size;
     if (arr->capacity <= index) { // expand body
-        puts("expanding");
         size_t new_capacity = _get_quadratic_capacity(index);
         byte* new_body = (byte *)calloc(new_capacity, ts);
         memcpy(new_body, arr->body, arr->length * ts);
