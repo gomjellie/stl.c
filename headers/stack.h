@@ -1,9 +1,9 @@
 #include <stdlib.h>
-#include "array.h"
+#include "vector.h"
 #ifndef __STACK_H__
 
 typedef struct _stack {
-    array* s_body;
+    vector* s_body;
 
     size_t length;
 } stack;
