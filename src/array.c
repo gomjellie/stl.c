@@ -56,12 +56,23 @@ bool array_has(array* arr, void* element) {
         void* a_i = array_get(arr, i);
         int cmp = memcmp(a_i, element, arr->type_size);
         // cmp == 0 when they match
-        if (!cmp) {
+        if (!cmp)
             return true;
-        }
     }
 
     return false;
+}
+
+int array_find(array* arr, void* element) {
+    for (int i = 0; i < arr->length; i++) {
+        void* a_i = array_get(arr, i);
+        int cmp = memcmp(a_i, element, arr->type_size);
+        // cmp == 0 when they match
+        if (!cmp) 
+            return i;
+    }
+
+    return -1;
 }
 
 bool array_destroy(array* arr) {

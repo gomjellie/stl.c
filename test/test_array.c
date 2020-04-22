@@ -31,4 +31,7 @@ int main() {
     bool has_10 = array_has(arr, &ten);
     printf("nine?: %d\n", has_9);
     printf("ten?: %d\n", has_10);
+
+    printf("nine is at %d\n", array_find(arr, &nine));
+    printf("ten is at %d\n", array_find(arr, &ten));
 }

@@ -22,6 +22,6 @@ bool array_destroy(array* arr);
 void* array_get(array* arr, size_t index);
 bool array_set(array* arr, size_t index, void* element);
 bool array_has(array* arr, void* element);
-size_t array_find(array* arr, void* element);
+int array_find(array* arr, void* element);
 
 #endif /* __ARRAY_H__ */
