@@ -134,6 +134,7 @@ array_clear(v);
 
 ## array_empty
 Prototype: `bool array_empty(array* arr, void* element);`
+
 비어있으면 true, 원소가 하나라도 있으면 false
 
 ## array_has
