@@ -6,19 +6,19 @@ c++의 stl을 c에서 구현한 라이브러리
 
 ## vector functions
 
- - [`new_array`](#new_array) (`array* new_array(size_t type_size)`) 생성자
+ - [`new_array`](#new_array) (`array* new_array(size_t type_size)`) 메모리를 생성한다. 초기에 capacity는 128을 갖는다.
  - [`destroy`](#array_destroy) (`bool array_destroy(array* arr)`) 메모리 해재
- - [`get`](#array_get) (`void* array_get(array* arr, size_t index)`)
- - [`at`](#array_at) (`void* array_at(array* arr, size_t index)`)
- - [`front`](#array_front) (`void* array_front(array* arr)`)
- - [`back`](#array_back) (`void* array_back(array* arr)`)
- - [`set`](#array_set) (`bool array_set(array* arr, size_t index, void* element)`)
- - [`push_back`](#array_push_back) (`bool array_push_back(array* arr, void* element)`)
- - [`array_pop_back`](#array_pop_back) (`void* array_pop_back(array* arr)`)
- - [`clear`](#array_clear) (`bool array_clear(array* arr)`)
- - [`empty`](#array_empty) (`bool array_empty(array* arr)`)
- - [`has`](#array_has) (`bool array_has(array* arr, void* element)`)
- - [`index'](#array_index) (`int array_index(array* arr, void* element)`)
+ - [`get`](#array_get) (`void* array_get(array* arr, size_t index)`) index번째 원소를 참조한다. 메모리가 할당되지 않은 영역은 NULL을 참조하게 된다.
+ - [`at`](#array_at) (`void* array_at(array* arr, size_t index)`) index번째 원소를 참조한다. 메모리가 할당되지 않은 영역은 NULL을 참조하게 된다.
+ - [`front`](#array_front) (`void* array_front(array* arr)`) 첫번째 원소를 참조한다.
+ - [`back`](#array_back) (`void* array_back(array* arr)`) 마지막 원소를 참조한다.
+ - [`set`](#array_set) (`bool array_set(array* arr, size_t index, void* element)`) index번째 원소를 element로 설정한다.
+ - [`push_back`](#array_push_back) (`bool array_push_back(array* arr, void* element)`) 마지막 원소 뒤에 원소 element를 삽입한다.
+ - [`array_pop_back`](#array_pop_back) (`void* array_pop_back(array* arr)`) 마지막 원소를 제거합니다.
+ - [`clear`](#array_clear) (`bool array_clear(array* arr)`) 모든 원소를 0으로 리셋한다. length는 0으로 줄었지만 capacity와 메모리는 그대로 유지한다.
+ - [`empty`](#array_empty) (`bool array_empty(array* arr)`) 비어있으면 true, 원소가 하나라도 있으면 false
+ - [`has`](#array_has) (`bool array_has(array* arr, void* element)`) python에서 사용하는 if elem in list: 같은 표현을 가능하게 해줌 (시간복잡도: O(N))
+ - [`index`](#array_index) (`int array_index(array* arr, void* element)`) python에서 사용하는 [1, 2, 3].index(3) 과같은 표현을 가능하게 해줌
 
 ## vector memeber variables
 
@@ -131,6 +131,10 @@ length는 0으로 줄었지만 capacity와 메모리는 그대로 유지한다.
 ```c
 array_clear(v);
 ```
+
+## array_empty
+Prototype: `bool array_empty(array* arr, void* element);`
+비어있으면 true, 원소가 하나라도 있으면 false
 
 ## array_has
 Prototype: `bool array_has(array* arr, void* element);`
