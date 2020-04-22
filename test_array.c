@@ -19,5 +19,11 @@ int main() {
     if (res == NULL) {
         puts("NULL"); return 1;
     }
-    printf("%d", *res);
+    printf("%d\n", *res);
+
+    array_destroy(arr);
+
+    arr = new_array(sizeof(int));
+    array_set(arr, 128, &elem);
+
 }
