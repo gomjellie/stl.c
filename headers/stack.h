@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "vector.h"
 #ifndef __STACK_H__
+#define __STACK_H__
 
 typedef struct _stack {
     vector* s_buff;

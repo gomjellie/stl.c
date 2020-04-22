@@ -1,4 +1,5 @@
 #ifndef __COMMON_H__
+#define __COMMON_H__
 
 typedef enum _bool {
     false = 0,
