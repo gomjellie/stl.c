@@ -9,11 +9,11 @@ stack* new_stack(size_t type_size) {
     return new_v;
 }
 
-bool stack_push_back(stack* v, void* element) {
+bool stack_push(stack* v, void* element) {
     return array_set(v->s_body, v->length++, element);
 }
 
-void* stack_pop_back(stack* v) {
+void* stack_pop(stack* v) {
     if (v->length == 0) {
         perror("stack error: stack is empty"); exit(1);
     }
