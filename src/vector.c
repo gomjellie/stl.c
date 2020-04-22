@@ -1,0 +1,129 @@
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <stdio.h>
+#include "headers/vector.h"
+
+size_t _get_quadratic_capacity(size_t prev_capacity);
+
+vector* new_vector(size_t type_size) {
+    vector* new_this = malloc(sizeof(vector));
+    new_this->body = (byte *)calloc(INIT_CAPACITY_LENGTH, type_size);
+    new_this->capacity = INIT_CAPACITY_LENGTH;
+    new_this->length = 0;
+    new_this->type_size = type_size;
+
+    return new_this;
+}
+
+void* vector_get(vector* this, size_t index) {
+    if (this->length <= index)
+        return NULL;
+
+    return this->body + index * this->type_size; // 편의상 문제를 일단 남겨둠
+}
+
+void* vector_at(vector* this, size_t index) {
+    return vector_get(this, index);
+}
+
+void* vector_front(vector* this) {
+    // 첫번째 원소를 참조합니다.
+    return vector_get(this, 0);
+}
+
+void* vector_back(vector* this) {
+    // 마지막 원소를 참조합니다.
+    return vector_get(this, this->length - 1);
+}
+
+bool vector_set(vector* this, size_t index, void* element) {
+    size_t ts = this->type_size;
+    if (this->capacity <= index) { // expand body
+        size_t new_capacity = _get_quadratic_capacity(index);
+        byte* new_body = (byte *)calloc(new_capacity, ts);
+        memcpy(new_body, this->body, this->length * ts);
+
+        free(this->body);
+        this->body = new_body;
+        this->capacity = new_capacity;
+    }
+
+    this->length = MAX(this->length, index + 1);
+    memcpy((void *)this->body + index * ts, element, ts);
+    return true;
+}
+
+
+bool vector_push_back(vector* this, void* element) {
+    return vector_set(this, this->length++, element);
+}
+
+void* vector_pop_back(vector* this) {
+    if (this->length == 0)
+        return NULL;
+
+    return vector_get(this, --this->length);
+}
+
+bool vector_clear(vector* this) {
+    /**
+        - clear every elements to zero
+        - set length to zero
+        - keep memory allocated (capacity doesn't change)
+    */
+    this->length = 0;
+    memset(this->body, 0x00, this->type_size * this->capacity);
+
+    return true;
+}
+
+bool vector_empty(vector* this) {
+    return this->length == 0;
+}
+
+
+bool vector_has(vector* this, void* element) {
+    for (int i = 0; i < this->length; i++) {
+        void* a_i = vector_get(this, i);
+        int cmp = memcmp(a_i, element, this->type_size);
+        // cmp == 0 when they match
+        if (!cmp)
+            return true;
+    }
+
+    return false;
+}
+
+int vector_index(vector* this, void* element) {
+    for (int i = 0; i < this->length; i++) {
+        void* a_i = vector_get(this, i);
+        int cmp = memcmp(a_i, element, this->type_size);
+        // cmp == 0 when they match
+        if (!cmp) 
+            return i;
+    }
+
+    return -1;
+}
+
+bool vector_destroy(vector* this) {
+    free(this->body);
+    free(this);
+
+    return true;
+}
+
+/**
+    아래의 함수들은 vector.h를 통해서 인터페이스가 제공되지 않는 함수들임.
+*/
+
+size_t _get_quadratic_capacity(size_t prev_capacity) {
+    /**
+    capacity를 초과한 인덱스를 위해 새로 할당할 capacity를 계산함
+    10 -> 16
+    5 -> 8
+    4 -> 8
+    */
+    return 0x02 << (size_t)log2(prev_capacity);
+}
