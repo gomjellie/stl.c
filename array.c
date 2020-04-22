@@ -15,19 +15,16 @@ void* array_get(array* arr, size_t index) {
 
 bool array_set(array* arr, size_t index, void* element) {
     size_t ts = arr->type_size;
-    if (arr->length < index) {
+    if (arr->length < index) { // expand body
         size_t new_length = _get_quadratic_length(index);
-        size_t new_size = new_length * ts;
-        byte* new_body = (byte *)malloc(new_size);
-        memset(new_body, 0, new_size);
+        byte* new_body = (byte *)calloc(new_length, ts);
         memcpy(new_body, arr->body, arr->length * ts);
 
         free(arr->body);
         arr->body = new_body;
         arr->length = new_length;
-        memcpy(arr->body + index * ts, element, ts);
-        return true;
     }
+    
     memcpy((void *)arr->body + index * ts, element, ts);
     return true;
 }
