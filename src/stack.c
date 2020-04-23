@@ -1,4 +1,4 @@
-#include "headers/stack.h"
+#include "stack.h"
 
 stack* new_stack(size_t template_size) {
     stack* new_s = (stack*) malloc(sizeof(stack));
