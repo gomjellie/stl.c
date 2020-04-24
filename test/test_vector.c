@@ -51,10 +51,9 @@ void test_vector_new_with_string(void) {
 
 void test_vector_set_with_string(void) {
     v = new_vector(sizeof(char *));
-    char hello[32] = "hello";
-    char* res;
-    vector_set(v, 0, hello);
-    
+    char* hello = "hello hello hello hello";
+    char** res;
+
     res = vector_get(v, 0);
     TEST_ASSERT_FALSE (strcmp(hello, res)); // strcmp returns 0 when it's same
     hello[0] = 'e'; // hello -> eello
@@ -71,4 +70,33 @@ void test_vector_has_with_string(void) {
     
     TEST_ASSERT_TRUE (32 == vector_index(v, find_hello));
     TEST_ASSERT_TRUE (-1 == vector_index(v, find_hallo));
+}
+
+void test_vector_new_with_double(void) {
+    v = new_vector(sizeof(double));
+}
+
+void test_vector_set_with_double(void) {
+    v = new_vector(sizeof(double));
+    double pi = 3.14;
+    double* res;
+    vector_set(v, 0, &pi);
+    
+    res = vector_get(v, 0);
+    TEST_ASSERT_TRUE (pi == *res);
+    pi = 4.12;
+    res = vector_get(v, 0);
+    TEST_ASSERT_FALSE (pi == *res); // cmp 4.12 w/ 3.14
+}
+
+void test_vector_has_with_double(void) {
+    v = new_vector(sizeof(double));
+    double pi = 3.14;
+    double* res;
+    vector_set(v, 32, &pi);
+    
+    double find_val = 3.14;
+    TEST_ASSERT_TRUE (32 == vector_index(v, &find_val));
+    find_val = 2;
+    TEST_ASSERT_TRUE (-1 == vector_index(v, &find_val));
 }
