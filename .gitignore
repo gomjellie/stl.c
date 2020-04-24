@@ -54,3 +54,4 @@ dkms.conf
 run_test
 
 build
+.vscode
