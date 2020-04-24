@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "vector.h"
 
 vector* v;
@@ -51,12 +52,14 @@ void test_vector_new_with_string(void) {
 void test_vector_set_with_string(void) {
     v = new_vector(sizeof(char *));
     char hello[32] = "hello";
-    vector_set(v, 0, hello);
-    hello[0] = 'q';
     char* res;
+    vector_set(v, 0, hello);
+    
     res = vector_get(v, 0);
-    printf("%p\n", hello);
-    printf("%p", res);
+    TEST_ASSERT_FALSE (strcmp(hello, res)); // strcmp returns 0 when it's same
+    hello[0] = 'e'; // hello -> eello
+    res = vector_get(v, 0);
+    TEST_ASSERT_TRUE (strcmp(hello, res));
 }
 
 void test_vector_has_with_string(void) {
@@ -64,5 +67,8 @@ void test_vector_has_with_string(void) {
     char hello[32] = "hello";
     vector_set(v, 32, hello);
     char find_hello[32] = "hello";
-    printf("%d", vector_index(v, find_hello));
+    char find_hallo[32] = "hallo";
+    
+    TEST_ASSERT_TRUE (32 == vector_index(v, find_hello));
+    TEST_ASSERT_TRUE (-1 == vector_index(v, find_hallo));
 }
