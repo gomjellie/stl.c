@@ -4,6 +4,12 @@ c++의 stl을 c에서 구현한 라이브러리
 
 # deep_vector
 
+원소를 deep_copy 해서 저장하는 vector. 주소를 저장하는것이 아닌 값을 저장해서 원본이 사라지거나 변경되어도 벡터안에서 변화가 없다.
+
+동적으로 할당된 객체들은 메모리관리를 함께 해주는 shallow_vector를 사용해야함. 주소값을 저장하기때문에 외부에서 변경되면 내부 원소값이 변할 수 있다.
+
+shallow_vector는 set할때 기존에 주소값이 있던곳에 overwrite하면 기존의 원소를 메모리에서 자동으로 해재해준다.
+
 ## deep_vector functions
 
  - [`new_deep_vector`](#new_deep_vector) vector 생성자. 초기에 capacity는 128을 갖는다.
