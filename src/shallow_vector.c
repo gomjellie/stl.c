@@ -4,9 +4,7 @@
 #include <stdio.h>
 #include "shallow_vector.h"
 
-typedef shallow_vector sh_vector;
-
-size_t _get_quadratic_capacity(size_t prev_capacity);
+static size_t _get_quadratic_capacity(size_t prev_capacity);
 
 /**
     element_destroyer 가 필요한 이유?
@@ -71,8 +69,11 @@ bool shallow_vector_set(shallow_vector* this, size_t index, void* element) {
         this->capacity = new_capacity;
     }
 
+    if (this->v_buff[index] != NULL)
+        this->element_destroyer(this->v_buff[index]);
+
     this->length = MAX(this->length, index + 1);
-    this->v_buff[index] = element; // 기존의 자리에 NULL 이 있지 않으면 destroyer로 메모리 해제 해줘야함.    
+    this->v_buff[index] = element;
     return true;
 }
 
@@ -144,7 +145,7 @@ bool shallow_vector_destroy(shallow_vector* this) {
     아래의 함수들은 shallow_vector.h를 통해서 인터페이스가 제공되지 않는 함수들임.
 */
 
-size_t _get_quadratic_capacity(size_t prev_capacity) {
+static size_t _get_quadratic_capacity(size_t prev_capacity) {
     /**
     capacity를 초과한 인덱스를 위해 새로 할당할 capacity를 계산함
     10 -> 16
