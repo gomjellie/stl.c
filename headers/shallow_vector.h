@@ -1,0 +1,5 @@
+#ifndef SHALLOW_VECTOR_H
+#define SHALLOW_VECTOR_H
+
+
+#endif // SHALLOW_VECTOR_H
