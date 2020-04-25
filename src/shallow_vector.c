@@ -8,8 +8,28 @@ typedef shallow_vector sh_vector;
 
 size_t _get_quadratic_capacity(size_t prev_capacity);
 
+/**
+    element_destroyer 가 필요한 이유?
+    내부적으로 포인터를 갖지 않는 자료형이라면 그냥 free해주면 됨
+    예를들면 
+    struct A{
+        int a;
+        float b;
+    }
+    이런경우. free함수면 충분하다.
+
+    하지만, 내부적으로 포인터를 갖고 거기에 동적할당을 해준 멤버를 갖고 있다면?
+    struct B{
+        int a;
+        int* buffer; // malloc으로 버퍼가 할당될것이다.
+    }
+    모든 타입을 지원하는 generic한 프로그래밍을 위해서 void*로 원소를 받는데
+    우리는 안의 struct에 어디를 또 free해줘야 할지 모른다. (struct B안의 buffer의 존재도 모름)
+    따라서 struct B의 메모리를 수거하는 함수를 인자로 받는다.
+*/
 shallow_vector* new_shallow_vector(void (*element_destroyer) (void *element)) {
     shallow_vector* new_this = (shallow_vector*) malloc(sizeof(shallow_vector));
+    new_this->element_destroyer = element_destroyer;
     new_this->v_buff = (void *)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
     new_this->capacity = INIT_CAPACITY_LENGTH;
     new_this->length = 0;
