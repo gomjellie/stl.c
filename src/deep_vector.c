@@ -20,19 +20,26 @@ void* deep_vector_get(deep_vector* this, size_t index) {
     if (this->length <= index)
         return NULL;
 
-    return this->v_buff + index * this->template_size; // 편의상 문제를 일단 남겨둠
+    size_t ts = this->template_size;
+    void* ret = (void *)calloc(sizeof(byte), ts);
+    memcpy(ret, deep_vector_at(this, index), ts);
+
+    return ret;
 }
 
 void* deep_vector_at(deep_vector* this, size_t index) {
-    return deep_vector_get(this, index);
+    if (this->length <= index)
+        return NULL;
+
+    return this->v_buff + index * this->template_size; // 편의상 문제를 일단 남겨둠
 }
 
 void* deep_vector_front(deep_vector* this) {
-    return deep_vector_get(this, 0);
+    return deep_vector_at(this, 0);
 }
 
 void* deep_vector_back(deep_vector* this) {
-    return deep_vector_get(this, this->length - 1);
+    return deep_vector_at(this, this->length - 1);
 }
 
 bool deep_vector_set(deep_vector* this, size_t index, void* element) {

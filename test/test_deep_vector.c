@@ -29,6 +29,21 @@ void test_deep_vector_get_with_int(void) {
     TEST_ASSERT_TRUE (res == NULL);
 }
 
+void test_deep_vector_compare_get_and_at_with_int(int ten) {
+    v = new_deep_vector(sizeof(int));
+    ten = 10;
+    deep_vector_set(v, 15, &ten);
+    int* get1 = (int *)deep_vector_get(v, 15);
+    int* get2 = (int *)deep_vector_get(v, 15);
+    int* at1 = (int *)deep_vector_at(v, 15);
+    int* at2 = (int *)deep_vector_at(v, 15);
+    
+    TEST_ASSERT_TRUE (*get1 == *get2 && *at1 == *at2 && *get1 == *at1);
+    TEST_ASSERT_TRUE (get1 != get2);
+    TEST_ASSERT_TRUE (at1 == at2);
+    TEST_ASSERT_TRUE (at1 != get1);
+}
+
 void test_deep_vector_has(void) {
     v = new_deep_vector(sizeof(int));
     int nine = 9;
