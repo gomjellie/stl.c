@@ -38,6 +38,12 @@
   :support:
     - test/support
 
+:flags:
+  :test:
+    :compile:
+      :*:
+        - -std=c11 -Wall -lm
+
 :defines:
   # in order to add common defines:
   #  1) remove the trailing [] from the :common: section
