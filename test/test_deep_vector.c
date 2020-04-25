@@ -45,33 +45,6 @@ void test_deep_vector_index(void) {
     TEST_ASSERT_TRUE (deep_vector_index(v, &nine) == 2);
 }
 
-void test_deep_vector_new_with_string(void) {
-    v = new_deep_vector(sizeof(char *));
-}
-
-void test_deep_vector_set_with_string(void) {
-    v = new_deep_vector(sizeof(char *));
-    char* hello = "hello hello hello hello";
-    char** res;
-
-    res = deep_vector_get(v, 0);
-    TEST_ASSERT_FALSE (strcmp(hello, res)); // strcmp returns 0 when it's same
-    hello[0] = 'e'; // hello -> eello
-    res = deep_vector_get(v, 0);
-    TEST_ASSERT_TRUE (strcmp(hello, res));
-}
-
-void test_deep_vector_has_with_string(void) {
-    v = new_deep_vector(sizeof(char *));
-    char hello[32] = "hello";
-    deep_vector_set(v, 32, hello);
-    char find_hello[32] = "hello";
-    char find_hallo[32] = "hallo";
-    
-    TEST_ASSERT_TRUE (32 == deep_vector_index(v, find_hello));
-    TEST_ASSERT_TRUE (-1 == deep_vector_index(v, find_hallo));
-}
-
 void test_deep_vector_new_with_double(void) {
     v = new_deep_vector(sizeof(double));
 }
