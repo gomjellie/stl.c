@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "deep_vector.h"
-#ifndef __STACK_H__
-#define __STACK_H__
+#ifndef STACK_H
+#define STACK_H
 
 typedef struct _stack {
     deep_vector* s_buff;
@@ -16,4 +16,4 @@ bool stack_push(stack* this, void* element);
 void* stack_pop(stack* this);
 bool stack_empty(stack* this);
 
-#endif /* __STACK_H__ */
+#endif /* STACK_H */

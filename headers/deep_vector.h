@@ -1,5 +1,5 @@
-#ifndef __deep_vector_H__
-#define __deep_vector_H__
+#ifndef DEEP_VECTOR_H
+#define DEEP_VECTOR_H
 #include "common.h"
 
 enum deep_vector_default {
@@ -31,4 +31,4 @@ bool deep_vector_empty(deep_vector* this);
 bool deep_vector_has(deep_vector* this, void* element);
 int deep_vector_index(deep_vector* this, void* element);
 
-#endif /* __deep_vector_H__ */
+#endif /* DEEP_VECTOR_H */
