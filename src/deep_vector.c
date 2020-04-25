@@ -2,12 +2,12 @@
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
-#include "vector.h"
+#include "deep_vector.h"
 
 size_t _get_quadratic_capacity(size_t prev_capacity);
 
-vector* new_vector(size_t template_size) {
-    vector* new_this = malloc(sizeof(vector));
+deep_vector* new_deep_vector(size_t template_size) {
+    deep_vector* new_this = malloc(sizeof(deep_vector));
     new_this->v_buff = (byte *)calloc(INIT_CAPACITY_LENGTH, template_size);
     new_this->capacity = INIT_CAPACITY_LENGTH;
     new_this->length = 0;
@@ -16,26 +16,26 @@ vector* new_vector(size_t template_size) {
     return new_this;
 }
 
-void* vector_get(vector* this, size_t index) {
+void* deep_vector_get(deep_vector* this, size_t index) {
     if (this->length <= index)
         return NULL;
 
     return this->v_buff + index * this->template_size; // 편의상 문제를 일단 남겨둠
 }
 
-void* vector_at(vector* this, size_t index) {
-    return vector_get(this, index);
+void* deep_vector_at(deep_vector* this, size_t index) {
+    return deep_vector_get(this, index);
 }
 
-void* vector_front(vector* this) {
-    return vector_get(this, 0);
+void* deep_vector_front(deep_vector* this) {
+    return deep_vector_get(this, 0);
 }
 
-void* vector_back(vector* this) {
-    return vector_get(this, this->length - 1);
+void* deep_vector_back(deep_vector* this) {
+    return deep_vector_get(this, this->length - 1);
 }
 
-bool vector_set(vector* this, size_t index, void* element) {
+bool deep_vector_set(deep_vector* this, size_t index, void* element) {
     size_t ts = this->template_size;
     if (this->capacity <= index) { // expand v_buff
         size_t new_capacity = _get_quadratic_capacity(index);
@@ -53,18 +53,18 @@ bool vector_set(vector* this, size_t index, void* element) {
 }
 
 
-bool vector_push_back(vector* this, void* element) {
-    return vector_set(this, this->length++, element);
+bool deep_vector_push_back(deep_vector* this, void* element) {
+    return deep_vector_set(this, this->length++, element);
 }
 
-void* vector_pop_back(vector* this) {
+void* deep_vector_pop_back(deep_vector* this) {
     if (this->length == 0)
         return NULL;
 
-    return vector_get(this, --this->length);
+    return deep_vector_get(this, --this->length);
 }
 
-bool vector_clear(vector* this) {
+bool deep_vector_clear(deep_vector* this) {
     /**
         - clear every elements to zero
         - set length to zero
@@ -76,14 +76,14 @@ bool vector_clear(vector* this) {
     return true;
 }
 
-bool vector_empty(vector* this) {
+bool deep_vector_empty(deep_vector* this) {
     return this->length == 0;
 }
 
 
-bool vector_has(vector* this, void* element) {
+bool deep_vector_has(deep_vector* this, void* element) {
     for (int i = 0; i < this->length; i++) {
-        void* a_i = vector_get(this, i);
+        void* a_i = deep_vector_get(this, i);
         int cmp = memcmp(a_i, element, this->template_size);
         // cmp == 0 when they match
         if (!cmp)
@@ -93,9 +93,9 @@ bool vector_has(vector* this, void* element) {
     return false;
 }
 
-int vector_index(vector* this, void* element) {
+int deep_vector_index(deep_vector* this, void* element) {
     for (int i = 0; i < this->length; i++) {
-        void* a_i = vector_get(this, i);
+        void* a_i = deep_vector_get(this, i);
         int cmp = memcmp(a_i, element, this->template_size);
         // cmp == 0 when they match
         if (!cmp) 
@@ -105,7 +105,7 @@ int vector_index(vector* this, void* element) {
     return -1;
 }
 
-bool vector_destroy(vector* this) {
+bool deep_vector_destroy(deep_vector* this) {
     free(this->v_buff);
     free(this);
 
@@ -113,7 +113,7 @@ bool vector_destroy(vector* this) {
 }
 
 /**
-    아래의 함수들은 vector.h를 통해서 인터페이스가 제공되지 않는 함수들임.
+    아래의 함수들은 deep_vector.h를 통해서 인터페이스가 제공되지 않는 함수들임.
 */
 
 size_t _get_quadratic_capacity(size_t prev_capacity) {

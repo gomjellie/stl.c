@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include "vector.h"
+#include "deep_vector.h"
 #ifndef __STACK_H__
 #define __STACK_H__
 
 typedef struct _stack {
-    vector* s_buff;
+    deep_vector* s_buff;
 
     size_t length;
 } stack;
