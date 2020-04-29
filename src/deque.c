@@ -1,9 +1,9 @@
-#include "dequeue.h"
+#include "deque.h"
 #include <stdlib.h>
 #include <string.h>
 
-dequeue* new_dequeue_primitive(size_t template_size) {
-    dequeue* this = (dequeue*) malloc(sizeof(dequeue));
+deque* new_deque_primitive(size_t template_size) {
+    deque* this = (deque*) malloc(sizeof(deque));
     this->template_size = template_size;
     this->destructor = NULL;
     this->front = 0;
@@ -15,8 +15,8 @@ dequeue* new_dequeue_primitive(size_t template_size) {
     return this;
 }
 
-dequeue* new_dequeue_object(void (*destructor) (void* this)) {
-    dequeue* this = (dequeue*) malloc(sizeof(dequeue));
+deque* new_deque_object(void (*destructor) (void* this)) {
+    deque* this = (deque*) malloc(sizeof(deque));
     this->destructor = destructor;
     this->front = 0;
     this->rear = 0;

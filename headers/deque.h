@@ -7,11 +7,11 @@ typedef enum _element_type {
     OBJECT,
 } element_type;
 
-typedef enum _dequeue_defaults {
+typedef enum _deque_defaults {
     INIT_CAPACITY_LENGTH = 128,
-} dequeue_defaults;
+} deque_defaults;
 
-typedef struct _dequeue{
+typedef struct _deque{
     void** buff;
     
     element_type type;
@@ -22,16 +22,16 @@ typedef struct _dequeue{
     size_t capacity;
     
     void (*destructor) (void*);
-} dequeue;
+} deque;
 
-dequeue* new_dequeue_primitive(size_t template_size);
-dequeue* new_dequeue_object(void (*destructor) (void* this));
+deque* new_deque_primitive(size_t template_size);
+deque* new_deque_object(void (*destructor) (void* this));
 
 // 진짜 c11은 전설이다....
-#define new_dequeue(dynamic_param) _Generic(dynamic_param, \
-    size_t: new_dequeue_primitive, \
-    int: new_dequeue_primitive, \
-    default: new_dequeue_object\
+#define new_deque(dynamic_param) _Generic(dynamic_param, \
+    size_t: new_deque_primitive, \
+    int: new_deque_primitive, \
+    default: new_deque_object\
 ) (dynamic_param)
 
 #endif // DEQUEUE_H
