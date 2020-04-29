@@ -1,5 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
+#include <stddef.h>
 
 typedef enum _bool {
     false = 0,
