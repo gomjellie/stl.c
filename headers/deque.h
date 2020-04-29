@@ -31,7 +31,13 @@ deque* new_deque_object(void (*destructor) (void* this));
 #define new_deque(dynamic_param) _Generic(dynamic_param, \
     size_t: new_deque_primitive, \
     int: new_deque_primitive, \
+    unsigned int: new_deque_primitive, \
     default: new_deque_object\
 ) (dynamic_param)
+
+bool deque_destructor(deque* this);
+
+bool deque_empty(deque* this);
+
 
 #endif // DEQUEUE_H
