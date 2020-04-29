@@ -24,3 +24,8 @@ void test_deque_empty(void) {
     bool res = deque_empty(dq);
     TEST_ASSERT_TRUE (res == true);
 }
+
+void test_deque_expand(void) {
+    // todo: write test code
+    dq = new_deque(sizeof(int));
+}

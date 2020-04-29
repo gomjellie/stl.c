@@ -17,8 +17,8 @@ typedef struct _deque{
     element_type type;
     
     size_t template_size;
-    size_t front;
-    size_t rear;
+    int front;
+    int rear;
     size_t capacity;
     
     void (*destructor) (void*);
@@ -38,6 +38,12 @@ deque* new_deque_object(void (*destructor) (void* this));
 bool deque_destructor(deque* this);
 
 bool deque_empty(deque* this);
+bool deque_push_front(deque* this, void* element);
+bool deque_push_back(deque* this, void* element);
+void* deque_pop_front(deque* this);
+void* deque_pop_back(deque* this);
+size_t deque_size(deque* this);
 
+bool deque_expand(deque* this); // added for test, this shouldn't be private so that user cannot use it.
 
 #endif // DEQUEUE_H
