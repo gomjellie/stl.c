@@ -21,13 +21,20 @@ void test_shallow_vector_set(void) {
     shallow_vector_set(v, 2, strdup("hello"));
 }
 
-void test_shallow_vector_get(char* hello_world) {
+void test_shallow_vector_get(char* hello_world, char* whats_up) {
     v = new_shallow_vector(free);
     hello_world = strdup("hello world!");
+    whats_up = strdup("what's up?");
     shallow_vector_set(v, 2, hello_world);
     
     const char* res = (char*)shallow_vector_get(v, 2);
     TEST_ASSERT_TRUE (strcmp(res, hello_world) == 0);
+    TEST_ASSERT_TRUE (v->capacity == 128);
+
+    shallow_vector_set(v, 130, whats_up);
+    res = (char *)shallow_vector_get(v, 130);
+    TEST_ASSERT_TRUE (strcmp(res, whats_up) == 0);
+    TEST_ASSERT_TRUE (v->capacity == 256);
 }
 
 void test_shallow_vector_is_element_destroyer_working(char* hello_korea, char* hello_japan) {
