@@ -15,7 +15,6 @@ deque* new_deque_primitive(size_t template_size) {
     this->type = PRIMITIVE;
 
     this->buff = (void **)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
-    printf("buff memory check after calloc: %p\n", this->buff);
     return this;
 }
 
@@ -66,20 +65,10 @@ bool deque_push_front(deque* this, void* element) {
 }
 
 bool deque_push_back(deque* this, void* element) {
-    static flag = 0;
-    if ((this->rear + 1) % this->capacity == this->front) {
-        flag = 1;
-        puts("before expand");
-        deque_show(this);
+    if ((this->rear + 1) % this->capacity == this->front)
         deque_expand(this);
-        puts("after expand");
-        deque_show(this);
-        return true;
-    }
-    if (flag == 1) return true;
 
     this->rear = (this->rear + 1) % this->capacity;
-    // printf("set[%d] := %d\n", this->rear, *(int *)element);
     deque_set(this, this->rear, element);
     return true;
 }
@@ -119,14 +108,13 @@ static bool deque_set(deque* this, size_t idx, void* element) {
 
     if (this->buff[idx] != NULL)
         this->destructor(this->buff[idx]);
-    // printf("set %p[%d] := %p(%d)\n", &this->buff[idx], idx, element, *(int *)element);
     this->buff[idx] = element;
     return true;
 }
 
 void deque_show(deque* this) {
     puts("deque_show");
-    printf("capacity: %d\n", this->capacity);
+    printf("capacity: %zu\n", this->capacity);
     printf("front: %d\n", this->front);
     printf("rear: %d\n", this->rear);
     for (int i = 0; i < this->capacity; i++) {
@@ -145,15 +133,9 @@ bool deque_expand(deque* this) {
     int idx = 1;
     while (!deque_empty(this)) {
         void* elem = deque_front(this);
-        printf("moving [%d] := %p(%d)\n", idx, elem, *(int *)elem);
         new_buff[idx++] = elem;
-        deque_pop_front(this);
-    }
-
-    for (int i = 0; i < this->capacity * 2; i++) {
-        if (new_buff[i] != NULL) {
-            printf("new_buff[%d]: %d\n", i, *(int *)(new_buff[i]));
-        }
+        this->buff[(this->front + 1) % this->capacity] = NULL;
+        this->front = (this->front + 1) % this->capacity;
     }
     this->rear = idx - 1;
     this->front = 0;
