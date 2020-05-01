@@ -14,7 +14,7 @@ deque* new_deque_primitive(size_t template_size) {
     this->capacity = INIT_CAPACITY_LENGTH;
     this->type = PRIMITIVE;
 
-    this->buff = (void *)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
+    this->buff = (void **)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
     printf("buff memory check after calloc: %p\n", this->buff);
     return this;
 }
@@ -27,7 +27,7 @@ deque* new_deque_object(void (*destructor) (void* this)) {
     this->capacity = INIT_CAPACITY_LENGTH;
     this->type = OBJECT;
 
-    this->buff = (void *)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
+    this->buff = (void **)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
     return this;
 }
 
@@ -139,7 +139,7 @@ bool deque_expand(deque* this) {
     // 이름은 그냥 expand인데 expand하면서 front를 0으로 맞추는 재정렬을 포함한다.
     // front == rear 인 경우는 고려하지 않는다. 
     // front == rear 가 되기 직전의 경우에만 expand하기 때문에!
-    void** new_buff = (void *)calloc(this->capacity * 2, sizeof(void *));
+    void** new_buff = (void **)calloc(this->capacity * 2, sizeof(void *));
     if (new_buff == NULL) return false;
 
     int idx = 1;
@@ -148,6 +148,12 @@ bool deque_expand(deque* this) {
         printf("moving [%d] := %p(%d)\n", idx, elem, *(int *)elem);
         new_buff[idx++] = elem;
         deque_pop_front(this);
+    }
+
+    for (int i = 0; i < this->capacity * 2; i++) {
+        if (new_buff[i] != NULL) {
+            printf("new_buff[%d]: %d\n", i, *(int *)(new_buff[i]));
+        }
     }
     this->rear = idx - 1;
     this->front = 0;

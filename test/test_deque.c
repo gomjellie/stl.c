@@ -29,7 +29,7 @@ void tearDown(void) {
 void test_deque_expand(int element) {
     dq = new_deque(sizeof(int));
     for (int i = 0 ; i < 4; i++) {
-        element = i;
+        element = (int)i;
         deque_push_back(dq, &element);
     }
     // deque_show(dq);
