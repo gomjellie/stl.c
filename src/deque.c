@@ -3,6 +3,7 @@
 #include <string.h>
 
 bool deque_expand(deque* this);
+static bool deque_set(deque* this, size_t idx, void* element);
 
 deque* new_deque_primitive(size_t template_size) {
     deque* this = (deque*) malloc(sizeof(deque));
@@ -35,7 +36,7 @@ bool deque_destructor(deque* this) {
             this->destructor(this->buff[i]);
     }
 
-    this->destructor(this->buff);
+    free(this->buff);
     free(this);
 
     return true;
@@ -45,37 +46,69 @@ bool deque_empty(deque* this) {
     return this->front == this->rear;
 }
 
-bool deque_push_front(deque* this, void* element) {
-    // TODO: check is_full
-    if (this->front == (this->rear % this->capacity)) {
+void* deque_front(deque* this) {
+    size_t idx = (this->front + 1) % this->capacity;
+    return this->buff[idx];
+}
 
-    }
-    if (this->type == PRIMITIVE) {
-        void* _elem = (void*) malloc(sizeof(this->template_size));
-        memcpy(_elem, element, sizeof(this->template_size));
-        this->buff[this->front] = _elem;
-        this->front = (this->front - 1 + this->capacity) % this->capacity;
-        return true;
-    }
-    
-    this->buff[this->front] = element;
-    this->front = (this->front - 1 + this->capacity) % this->capacity;
+void* deque_back(deque* this) {
+    return this->buff[this->rear];
+}
+
+bool deque_push_front(deque* this, void* element) {
+    if ((this->capacity + this->front - 1) % this->capacity == this->rear)
+        deque_expand(this);
+
+    deque_set(this, this->front, element);
+    this->front = (this->capacity + this->front - 1) % this->capacity;
+    return true;
 }
 
 bool deque_push_back(deque* this, void* element) {
+    if ((this->rear + 1) % this->capacity == this->front)
+        deque_expand(this);
 
+    this->rear = (this->rear + 1) % this->capacity;
+    deque_set(this, this->rear, element);
+    return true;
 }
 
-void* deque_pop_front(deque* this) {
+bool deque_pop_front(deque* this) {
+    if (deque_empty(this)) return NULL;
 
+    size_t idx = (this->front + 1) % this->capacity;
+    if (this->buff[idx] != NULL) this->destructor(this->buff[idx]);
+    this->buff[idx] = NULL;
+    this->front = idx;
+    return true;
 }
 
-void* deque_pop_back(deque* this) {
+bool deque_pop_back(deque* this) {
+    if (deque_empty(this)) return NULL;
 
+    size_t idx = (this->capacity + this->rear - 1) % this->capacity;
+    if (this->buff[idx] != NULL) this->destructor(this->buff[idx]);
+    this->buff[idx] = NULL;
+    this->rear = idx;
+    return true;
 }
 
 size_t deque_size(deque* this) {
     return (this->capacity + this->rear - this->front) % this->capacity;
+}
+
+static bool deque_set(deque* this, size_t idx, void* element) {
+    if (this->type == PRIMITIVE) {
+        void* _elem = (void *) malloc(this->template_size);
+        if (_elem == NULL) return false;
+
+        memcpy(_elem, element, this->template_size);
+        element = _elem;
+    }
+
+    if (this->buff[idx] != NULL)
+        this->destructor(this->buff[idx]);
+    return true;
 }
 
 bool deque_expand(deque* this) {

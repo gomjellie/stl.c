@@ -37,13 +37,15 @@ deque* new_deque_object(void (*destructor) (void* this));
 
 bool deque_destructor(deque* this);
 
-bool deque_empty(deque* this);
+void* deque_front(deque* this);
+void* deque_back(deque* this);
 bool deque_push_front(deque* this, void* element);
 bool deque_push_back(deque* this, void* element);
-void* deque_pop_front(deque* this);
-void* deque_pop_back(deque* this);
+bool deque_pop_front(deque* this);
+bool deque_pop_back(deque* this);
 size_t deque_size(deque* this);
+bool deque_empty(deque* this);
 
-bool deque_expand(deque* this); // added for test, this shouldn't be private so that user cannot use it.
+bool deque_expand(deque* this); // added for test, this shouldn't be public so that user cannot use it.
 
 #endif // DEQUEUE_H
