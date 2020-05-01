@@ -58,3 +58,22 @@ void test_object_deque_push_back(char* element) {
     res = (char *)deque_back(dq);
     TEST_ASSERT_TRUE (strcmp(element, res) == 0);
 }
+
+void test_object_deque_push_front(char* element) {
+    char* res;
+    element = strdup("hello south korea");
+    dq = new_deque(free);
+    deque_push_front(dq, element);
+    res = (char *)deque_front(dq);
+    TEST_ASSERT_TRUE (deque_size(dq) == 1);
+    TEST_ASSERT_TRUE (strcmp(element, res) == 0);
+
+    element = strdup("hello north korea");
+    deque_push_front(dq, element);
+    res = (char *)deque_front(dq);
+    TEST_ASSERT_TRUE (deque_size(dq) == 2);
+    TEST_ASSERT_TRUE (strcmp(element, res) == 0);
+
+    deque_pop_front(dq);
+    TEST_ASSERT_TRUE (strcmp((char *)deque_front(dq), (char *)deque_back(dq)) == 0);
+}
