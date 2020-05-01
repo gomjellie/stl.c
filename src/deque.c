@@ -86,10 +86,9 @@ bool deque_pop_front(deque* this) {
 bool deque_pop_back(deque* this) {
     if (deque_empty(this)) return false;
 
-    size_t idx = (this->capacity + this->rear - 1) % this->capacity;
-    if (this->buff[idx] != NULL) this->destructor(this->buff[idx]);
-    this->buff[idx] = NULL;
-    this->rear = idx;
+    if (this->buff[this->rear] != NULL) this->destructor(this->buff[this->rear]);
+    this->buff[this->rear] = NULL;
+    this->rear = (this->capacity + this->rear - 1) % this->capacity;
     return true;
 }
 

@@ -26,17 +26,6 @@ void test_deque_empty(void) {
     TEST_ASSERT_TRUE (res == true);
 }
 
-void test_deque_expand(int element) {
-    dq = new_deque(sizeof(int));
-    for (int i = 0 ; i < 4; i++) {
-        element = (int)i;
-        deque_push_back(dq, &element);
-    }
-    // deque_show(dq);
-    deque_pop_front(dq);
-    // deque_show(dq);
-}
-
 void test_primitive_deque_push(int element) {
     element = 10;
     dq = new_deque(sizeof(int));
@@ -82,4 +71,64 @@ void test_object_deque_push_front(char* element) {
 
     deque_pop_front(dq);
     TEST_ASSERT_TRUE (strcmp((char *)deque_front(dq), (char *)deque_back(dq)) == 0);
+}
+
+void test_primitive_push_back_and_pop_back(int element) {
+    const int test_max = 400;
+    dq = new_deque(sizeof(int));
+    for (int i = 0; i < test_max; i++) {
+        element = i;
+        deque_push_back(dq, &element);
+    }
+
+    for (int i = test_max - 1; i >= 0; i--) {
+        int* res = deque_back(dq);
+        TEST_ASSERT_TRUE (*res == i);
+        deque_pop_back(dq);
+    }
+}
+
+void test_primitive_push_back_and_pop_front(int element) {
+    const int test_max = 500;
+    dq = new_deque(sizeof(int));
+    for (int i = 0; i < test_max; i++) {
+        element = i;
+        deque_push_back(dq, &element);
+    }
+
+    for (int i = 0; i < test_max; i++) {
+        int* res = deque_front(dq);
+        TEST_ASSERT_TRUE (*res == i);
+        deque_pop_front(dq);
+    }
+}
+
+void test_primitive_push_front_and_pop_front(int element) {
+    const int test_max = 500;
+    dq = new_deque(sizeof(int));
+    for (int i = 0; i < test_max; i++) {
+        element = i;
+        deque_push_front(dq, &element);
+    }
+
+    for (int i = test_max - 1; i >= 0; i--) {
+        int* res = deque_front(dq);
+        TEST_ASSERT_TRUE (*res == i);
+        deque_pop_front(dq);
+    }
+}
+
+void test_primitive_push_front_and_pop_back(int element) {
+    const int test_max = 500;
+    dq = new_deque(sizeof(int));
+    for (int i = 0; i < test_max; i++) {
+        element = i;
+        deque_push_front(dq, &element);
+    }
+
+    for (int i = 0; i < test_max; i++) {
+        int* res = deque_back(dq);
+        TEST_ASSERT_TRUE (*res == i);
+        deque_pop_back(dq);
+    }
 }
