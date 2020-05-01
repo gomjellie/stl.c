@@ -29,8 +29,6 @@ vector* new_vector_object(void (*destructor) (void* this));
 // 함수 오버로딩, 인자가 sizeof(타입)인지 함수포인터인지 구분해서 전처리기가 함수를 스위치함
 #define new_vector(dynamic_param) _Generic(dynamic_param, \
     size_t: new_vector_primitive, \
-    int: new_vector_primitive, \
-    unsigned int: new_vector_primitive, \
     default: new_vector_object\
 ) (dynamic_param)
 

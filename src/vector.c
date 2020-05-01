@@ -150,7 +150,7 @@ int vector_index(vector* this, void* element) {
     return -1;
 }
 
-bool vector_destroy(vector* this) {
+bool vector_destructor(vector* this) {
     for (int i = 0; i < this->length; i++) {
         if (this->buff[i] != NULL)
             this->destructor(this->buff[i]);
