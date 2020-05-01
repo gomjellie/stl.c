@@ -72,11 +72,11 @@ bool deque_push_back(deque* this, void* element) {
         puts("before expand");
         deque_show(this);
         deque_expand(this);
-        // puts("after expand");
-        // deque_show(this);
-        return false;
+        puts("after expand");
+        deque_show(this);
+        return true;
     }
-    if (flag == 1) return false;
+    if (flag == 1) return true;
 
     this->rear = (this->rear + 1) % this->capacity;
     // printf("set[%d] := %d\n", this->rear, *(int *)element);
@@ -126,6 +126,9 @@ static bool deque_set(deque* this, size_t idx, void* element) {
 
 void deque_show(deque* this) {
     puts("deque_show");
+    printf("capacity: %d\n", this->capacity);
+    printf("front: %d\n", this->front);
+    printf("rear: %d\n", this->rear);
     for (int i = 0; i < this->capacity; i++) {
         if (this->buff[i] != NULL)
             printf("[%d] : %d\n", i, *(int *)(this->buff[i]));
@@ -142,19 +145,15 @@ bool deque_expand(deque* this) {
     int idx = 1;
     while (!deque_empty(this)) {
         void* elem = deque_front(this);
-        printf("%p[%d] := %p(%d)\n", &new_buff[idx], idx, elem, *(int *)elem);
+        printf("moving [%d] := %p(%d)\n", idx, elem, *(int *)elem);
         new_buff[idx++] = elem;
         deque_pop_front(this);
     }
     this->rear = idx - 1;
     this->front = 0;
 
-    return true;
-    // printf("buff memory check befroe free: %p\n", this->buff);
-    // free(this->buff);
-    
+    free(this->buff);
     this->buff = new_buff;
-    
     this->capacity = this->capacity * 2;
     
     return true;
