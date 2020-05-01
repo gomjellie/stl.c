@@ -113,7 +113,7 @@ static bool deque_set(deque* this, size_t idx, void* element) {
     return true;
 }
 
-void deque_show(deque* this) {
+static void deque_show(deque* this) {
     puts("deque_show");
     printf("capacity: %zu\n", this->capacity);
     printf("front: %d\n", this->front);
