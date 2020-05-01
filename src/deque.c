@@ -108,6 +108,7 @@ static bool deque_set(deque* this, size_t idx, void* element) {
 
     if (this->buff[idx] != NULL)
         this->destructor(this->buff[idx]);
+    this->buff[idx] = element;
     return true;
 }
 
