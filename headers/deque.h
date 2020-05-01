@@ -8,7 +8,7 @@ typedef enum _element_type {
 } element_type;
 
 typedef enum _deque_defaults {
-    INIT_CAPACITY_LENGTH = 128,
+    INIT_CAPACITY_LENGTH = 4,
 } deque_defaults;
 
 typedef struct _deque{
@@ -46,6 +46,7 @@ bool deque_pop_back(deque* this);
 size_t deque_size(deque* this);
 bool deque_empty(deque* this);
 
-bool deque_expand(deque* this); // added for test, this shouldn't be public so that user cannot use it.
+bool deque_expand(deque* this);
+void deque_show(deque* this);
 
 #endif // DEQUEUE_H
