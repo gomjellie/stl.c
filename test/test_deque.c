@@ -2,6 +2,7 @@
 
 #include "deque.h"
 #include <stdlib.h>
+#include <string.h>
 
 deque* dq;
 
@@ -28,4 +29,32 @@ void test_deque_empty(void) {
 void test_deque_expand(void) {
     // todo: write test code
     dq = new_deque(sizeof(int));
+}
+
+void test_primitive_deque_push(int element) {
+    element = 10;
+    dq = new_deque(sizeof(int));
+    deque_push_back(dq, &element);
+    TEST_ASSERT_TRUE (deque_size(dq) == 1);
+    TEST_ASSERT_TRUE (*(int *)deque_back(dq) == 10);
+    
+    element = 9;
+    deque_push_back(dq, &element);
+    TEST_ASSERT_TRUE (deque_size(dq) == 2);
+    TEST_ASSERT_TRUE (*(int *)deque_back(dq) == 9);
+    TEST_ASSERT_FALSE (deque_back(dq) == element);
+}
+
+void test_object_deque_push_back(char* element) {
+    char* res;
+    element = strdup("hello south korea");
+    dq = new_deque(free);
+    deque_push_back(dq, element);
+    res = (char *)deque_back(dq);
+    TEST_ASSERT_TRUE (strcmp(element, res) == 0);
+
+    element = strdup("hello north korea");
+    deque_push_back(dq, element);
+    res = (char *)deque_back(dq);
+    TEST_ASSERT_TRUE (strcmp(element, res) == 0);
 }
