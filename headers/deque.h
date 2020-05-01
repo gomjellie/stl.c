@@ -46,7 +46,4 @@ bool deque_pop_back(deque* this);
 size_t deque_size(deque* this);
 bool deque_empty(deque* this);
 
-bool deque_expand(deque* this);
-void deque_show(deque* this);
-
 #endif // DEQUEUE_H

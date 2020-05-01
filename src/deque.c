@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+static void deque_show(deque* this);
+static bool deque_expand(deque* this);
 static bool deque_set(deque* this, size_t idx, void* element);
 
 deque* new_deque_primitive(size_t template_size) {
@@ -122,7 +124,7 @@ void deque_show(deque* this) {
     }
 }
 
-bool deque_expand(deque* this) {
+static bool deque_expand(deque* this) {
     // 이름은 그냥 expand인데 expand하면서 front를 0으로 맞추는 재정렬을 포함한다.
     // front == rear 인 경우는 고려하지 않는다. 
     // front == rear 가 되기 직전의 경우에만 expand하기 때문에!
