@@ -78,3 +78,11 @@ deque* dq = new_deque(my_obj_destructor); // 소멸자를 size 대신에 넘겨�
 deque_push_back(dq, new_my_obj());
 
 ```
+
+# TEST
+
+ceedling을 먼저 설치해야됩니다. (gem install ceedling)
+
+```sh
+ceedling test:all
+```
