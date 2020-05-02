@@ -97,7 +97,7 @@ bool vector_set(vector* this, size_t index, void* element) {
 }
 
 bool vector_push_back(vector* this, void* element) {
-    return vector_set(this, this->length++, element);
+    return vector_set(this, this->length, element);
 }
 
 bool vector_pop_back(vector* this) {
@@ -128,22 +128,22 @@ bool vector_empty(vector* this) {
     return this->length == 0;
 }
 
-bool vector_has(vector* this, void* element) {
+bool vector_has(vector* this, void* element, int (*cmp_func)(const void*, const void*)) {
     for (int i = 0; i < this->length; i++) {
-        void* a_i = vector_get(this, i);
+        void* a_i = vector_at(this, i);
         
-        if (a_i == element)
+        if (cmp_func(a_i, element))
             return true;
     }
 
     return false;
 }
 
-int vector_index(vector* this, void* element) {
+int vector_index(vector* this, void* element, int (*cmp_func)(const void*, const void*)) {
     for (int i = 0; i < this->length; i++) {
-        void* a_i = vector_get(this, i);
+        void* a_i = vector_at(this, i);
         
-        if (a_i == element)
+        if (cmp_func(a_i, element))
             return i;
     }
 

@@ -44,8 +44,8 @@ bool vector_pop_back(vector* this);
 bool vector_clear(vector* this);
 
 bool vector_empty(vector* this);
-bool vector_has(vector* this, void* element);
-int vector_index(vector* this, void* element);
+bool vector_has(vector* this, void* element, int (*cmp_func)(const void*, const void*));
+int vector_index(vector* this, void* element, int (*cmp_func)(const void*, const void*));
 
 
 #endif // VECTOR_H

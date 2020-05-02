@@ -26,8 +26,8 @@ void test_deque_empty(void) {
     TEST_ASSERT_TRUE (res == true);
 }
 
-void test_primitive_deque_push(int element) {
-    element = 10;
+void test_primitive_deque_push() {
+    int element = 10;
     dq = new_deque(sizeof(int));
     deque_push_back(dq, &element);
     TEST_ASSERT_TRUE (deque_size(dq) == 1);
@@ -40,7 +40,8 @@ void test_primitive_deque_push(int element) {
     TEST_ASSERT_FALSE (deque_back(dq) == &element);
 }
 
-void test_object_deque_push_back(char* element) {
+void test_object_deque_push_back() {
+    char* element;
     char* res;
     element = strdup("hello south korea");
     dq = new_deque(free);
@@ -54,7 +55,8 @@ void test_object_deque_push_back(char* element) {
     TEST_ASSERT_TRUE (strcmp(element, res) == 0);
 }
 
-void test_object_deque_push_front(char* element) {
+void test_object_deque_push_front() {
+    char* element;
     char* res;
     element = strdup("hello south korea");
     dq = new_deque(free);
@@ -73,7 +75,8 @@ void test_object_deque_push_front(char* element) {
     TEST_ASSERT_TRUE (strcmp((char *)deque_front(dq), (char *)deque_back(dq)) == 0);
 }
 
-void test_primitive_push_back_and_pop_back(int element) {
+void test_primitive_push_back_and_pop_back() {
+    int element;
     const int test_max = 400;
     dq = new_deque(sizeof(int));
     for (int i = 0; i < test_max; i++) {
@@ -88,7 +91,8 @@ void test_primitive_push_back_and_pop_back(int element) {
     }
 }
 
-void test_primitive_push_back_and_pop_front(int element) {
+void test_primitive_push_back_and_pop_front() {
+    int element;
     const int test_max = 500;
     dq = new_deque(sizeof(int));
     for (int i = 0; i < test_max; i++) {
@@ -103,7 +107,8 @@ void test_primitive_push_back_and_pop_front(int element) {
     }
 }
 
-void test_primitive_push_front_and_pop_front(int element) {
+void test_primitive_push_front_and_pop_front() {
+    int element;
     const int test_max = 500;
     dq = new_deque(sizeof(int));
     for (int i = 0; i < test_max; i++) {
