@@ -65,6 +65,7 @@ my_obj* new_my_obj() {
     my_obj* this = (my_obj*) malloc(sizeof(my_obj));
     this->len = 100;
     this->body_buff = (char*) malloc(100);
+    return this;
 }
 
 void my_obj_destructor(my_obj* this) {
