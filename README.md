@@ -72,7 +72,7 @@ void object_t_destructor(object_t* this) {
     free(this);
 }
 
-deque* dq = new_deque(object_t); // 소멸자를 size 대신에 넘겨야함
+deque* dq = new_deque(object_t_destructor); // 소멸자를 size 대신에 넘겨야함
 
 deque_push_back(dq, new_object_t());
 deque_destructor(dq); // object_t_destructor 를 통해서 내부를 정리해줌.
