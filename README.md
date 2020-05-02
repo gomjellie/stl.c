@@ -54,29 +54,28 @@ deque_destructor(dq);
 원소로 객체(struct안에 동적할당된 공간을 갖는경우) 타입을 사용하기위해서는 sizeof(객체)가 아닌, 객체의 소멸자를 생성자에 대신 넣어줍니다.
 
 ```c
-// let's say we have defiend object like below
-
-typedef struct _my_obj {
+// let's say we have defiend object as shown below
+typedef struct _object_t {
     size_t len;
     char* body_buff;
-} my_obj;
+} object_t;
 
-my_obj* new_my_obj() {
-    my_obj* this = (my_obj*) malloc(sizeof(my_obj));
+object_t* new_object_t() {
+    object_t* this = (object_t*) malloc(sizeof(object_t));
     this->len = 100;
     this->body_buff = (char*) malloc(100);
     return this;
 }
 
-void my_obj_destructor(my_obj* this) {
+void object_t_destructor(object_t* this) {
     free(this->body_buff);
     free(this);
 }
 
-deque* dq = new_deque(my_obj_destructor); // 소멸자를 size 대신에 넘겨야함
+deque* dq = new_deque(object_t); // 소멸자를 size 대신에 넘겨야함
 
-deque_push_back(dq, new_my_obj());
-
+deque_push_back(dq, new_object_t());
+deque_destructor(dq); // object_t_destructor 를 통해서 내부를 정리해줌.
 ```
 
 # TEST
