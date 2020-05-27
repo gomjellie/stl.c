@@ -1,7 +1,7 @@
 #include "priority_queue.h"
 #include <stdlib.h>
 
-priority_queue* new_priority_queue_primitive(size_t template_size, int (*cmp_func)(const void*, const void*)) {
+priority_queue* new_priority_queue_primitive(size_t template_size, bool (*cmp_func)(const void*, const void*)) {
     priority_queue* this = (priority_queue*) malloc(sizeof(priority_queue));
     this->type = PRIMITIVE;
     this->heap = (void **)calloc(INIT_CAPACITY, sizeof(void *));
@@ -14,7 +14,7 @@ priority_queue* new_priority_queue_primitive(size_t template_size, int (*cmp_fun
     return this;
 }
 
-priority_queue* new_priority_queue_object(void (*destructor) (void* this), int (*cmp_func)(const void*, const void*)) {
+priority_queue* new_priority_queue_object(void (*destructor) (void* this), bool (*cmp_func)(const void*, const void*)) {
     priority_queue* this = (priority_queue*) malloc(sizeof(priority_queue));
     this->type = OBJECT;
     this->heap = (void **)calloc(INIT_CAPACITY, sizeof(void *));
@@ -27,8 +27,8 @@ priority_queue* new_priority_queue_object(void (*destructor) (void* this), int (
     return this;
 }
 
-bool priority_queue_destructor(priority_queue* this) {
-    for (size_t i = 0; i < this->length; i++) {
+void priority_queue_destructor(priority_queue* this) {
+    for (size_t i = 1; i <= this->length; i++) {
         this->destructor(this->heap[i]);
     }
     free(this->heap);
@@ -46,8 +46,15 @@ bool priority_queue_push(priority_queue* this, void* element) {
         // expand, this->capacity *= 2
     }
 
+    if (this->type == PRIMITIVE) {
+        void* _elem = (void *) malloc(this->template_size);
+        if (_elem == NULL) return false;
+        memcpy(_elem, element, this->template_size);
+        element = _elem;
+    }
+
     size_t cur = ++this->length;
-    while (cur != 1 && this->cmp(element, &this->heap[cur / 2]) == 1) {
+    while (cur != 1 && this->cmp(element, this->heap[cur / 2])) {
         this->heap[cur] = this->heap[cur / 2];
         cur /= 2;
     }
