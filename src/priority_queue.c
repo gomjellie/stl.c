@@ -36,7 +36,7 @@ bool priority_queue_destructor(priority_queue* this) {
 }
 
 void* priority_queue_top(priority_queue* this) {
-    if (priority_queue_empty(this)) reutnr NULL;
+    if (priority_queue_empty(this)) return NULL;
 
     return this->heap[1];
 }
