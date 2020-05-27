@@ -23,7 +23,7 @@ vector* new_vector_object(void (*destructor) (void* this));
     default: new_vector_object\
 ) (dynamic_param)
 
-bool vector_destructor(vector* this);
+void vector_destructor(vector* this);
 
 void* vector_get(vector* this, size_t index);
 void* vector_at(vector* this, size_t index);

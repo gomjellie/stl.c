@@ -18,7 +18,7 @@ stack* new_stack_object(void (*destructor) (void* this));
     default: new_stack_object\
 ) (dynamic_param)
 
-bool stack_destructor(stack* this);
+void stack_destructor(stack* this);
 
 bool stack_push(stack* this, void* element);
 void* stack_pop(stack* this);

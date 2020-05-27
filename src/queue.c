@@ -13,10 +13,9 @@ queue* new_queue_object(void (*destructor) (void* this)) {
     return this;
 }
 
-bool queue_destructor(queue* this) {
+void queue_destructor(queue* this) {
     deque_destructor(this->buff);
     free(this);
-    return true;
 }
 
 void* queue_front(queue* this) {

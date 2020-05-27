@@ -32,7 +32,7 @@ deque* new_deque_object(void (*destructor) (void* this)) {
     return this;
 }
 
-bool deque_destructor(deque* this) {
+void deque_destructor(deque* this) {
     for (int i = 0; i < this->capacity; i++) { // 더 자세하게 구현하면 순회 줄일수 있음
         if (this->buff[i] != NULL)
             this->destructor(this->buff[i]);
@@ -40,8 +40,6 @@ bool deque_destructor(deque* this) {
 
     free(this->buff);
     free(this);
-
-    return true;
 }
 
 bool deque_empty(deque* this) {

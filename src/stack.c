@@ -16,11 +16,9 @@ stack* new_stack_object(void (*destructor) (void* this)) {
     return this;
 }
 
-bool stack_destructor(stack* this) {
+void stack_destructor(stack* this) {
     vector_destructor(this->buff);
     free(this);
-
-    return true;
 }
 
 bool stack_push(stack* this, void* element) {

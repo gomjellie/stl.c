@@ -26,7 +26,7 @@ deque* new_deque_object(void (*destructor) (void* this));
     default: new_deque_object\
 ) (dynamic_param)
 
-bool deque_destructor(deque* this);
+void deque_destructor(deque* this);
 
 void* deque_front(deque* this);
 void* deque_back(deque* this);

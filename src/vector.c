@@ -150,7 +150,7 @@ int vector_index(vector* this, void* element, int (*cmp_func)(const void*, const
     return -1;
 }
 
-bool vector_destructor(vector* this) {
+void vector_destructor(vector* this) {
     for (int i = 0; i < this->length; i++) {
         if (this->buff[i] != NULL)
             this->destructor(this->buff[i]);
@@ -158,8 +158,6 @@ bool vector_destructor(vector* this) {
 
     free(this->buff);
     free(this);
-
-    return true;
 }
 
 /**

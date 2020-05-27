@@ -15,7 +15,7 @@ queue* new_queue_object(void (*destructor) (void* this));
     default: new_queue_object\
 ) (dynamic_param)
 
-bool queue_destructor(queue* this);
+void queue_destructor(queue* this);
 
 void* queue_front(queue* this);
 void* queue_back(queue* this);
