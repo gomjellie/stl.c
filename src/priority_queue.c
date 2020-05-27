@@ -9,7 +9,7 @@ priority_queue* new_priority_queue_primitive(size_t template_size, int (*cmp_fun
     this->template_size = template_size;
     this->length = 0;
     this->destructor = free;
-    this->cmp_func = cmp_func;
+    this->cmp = cmp_func;
 
     return this;
 }
@@ -22,7 +22,7 @@ priority_queue* new_priority_queue_object(void (*destructor) (void* this), int (
     this->template_size = 0;
     this->length = 0;
     this->destructor = destructor;
-    this->cmp_func = cmp_func;
+    this->cmp = cmp_func;
 
     return this;
 }
@@ -47,11 +47,12 @@ bool priority_queue_push(priority_queue* this, void* element) {
     }
 
     size_t cur = ++this->length;
-    while (cur != 1 && this->cmp_func(element, &this->heap[cur / 2]) == 1) {
+    while (cur != 1 && this->cmp(element, &this->heap[cur / 2]) == 1) {
         this->heap[cur] = this->heap[cur / 2];
         cur /= 2;
     }
     this->heap[cur] = element;
+    return true;
 }
 
 bool priority_queue_pop(priority_queue* this) {
@@ -63,14 +64,15 @@ bool priority_queue_pop(priority_queue* this) {
     size_t cur = 1;
     size_t child = 2;
     while (child <= this->length) {
-        if (child < this->length && this->cmp_func(this->heap[child + 1], this->heap[child]) == 1)
+        if (child < this->length && this->cmp(this->heap[child + 1], this->heap[child]) == 1)
             child++;
-        if (this->cmp_func(last_element, this->heap[child]) == 1) break;
+        if (this->cmp(last_element, this->heap[child]) == 1) break;
 
         this->heap[cur] = this->heap[child];
         cur = child; child *= 2;
     }
     this->heap[cur] = last_element;
+    return true;
 }
 
 size_t priority_queue_size(priority_queue* this) {

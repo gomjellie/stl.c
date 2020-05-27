@@ -11,8 +11,8 @@ typedef struct _priority_queue {
     size_t capacity;
     size_t length;
 
-    void* (*destructor)(void*);
-    int (*cmp_func)(const void*, const void*); // 1: 높은 우선순위, 0 같음, -1: 낮은 우선순위
+    void (*destructor) (void*);
+    int (*cmp)(const void*, const void*); // 1: 첫번째가 더 높은 우선순위, 0 같음, -1: 낮은 우선순위
 } priority_queue;
 
 priority_queue* new_priority_queue_primitive(size_t template_size, int (*cmp_func)(const void*, const void*));
