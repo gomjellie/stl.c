@@ -2,15 +2,6 @@
 #define DEQUEUE_H
 #include "common.h"
 
-typedef enum _element_type {
-    PRIMITIVE,
-    OBJECT,
-} element_type;
-
-typedef enum _deque_defaults {
-    INIT_CAPACITY_LENGTH = 128,
-} deque_defaults;
-
 typedef struct _deque{
     void** buff;
     

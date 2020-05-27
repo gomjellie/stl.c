@@ -13,10 +13,10 @@ deque* new_deque_primitive(size_t template_size) {
     this->destructor = free;
     this->front = 0;
     this->rear = 0;
-    this->capacity = INIT_CAPACITY_LENGTH;
+    this->capacity = INIT_CAPACITY;
     this->type = PRIMITIVE;
 
-    this->buff = (void **)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
+    this->buff = (void **)calloc(INIT_CAPACITY, sizeof(void *));
     return this;
 }
 
@@ -25,10 +25,10 @@ deque* new_deque_object(void (*destructor) (void* this)) {
     this->destructor = destructor;
     this->front = 0;
     this->rear = 0;
-    this->capacity = INIT_CAPACITY_LENGTH;
+    this->capacity = INIT_CAPACITY;
     this->type = OBJECT;
 
-    this->buff = (void **)calloc(INIT_CAPACITY_LENGTH, sizeof(void *));
+    this->buff = (void **)calloc(INIT_CAPACITY, sizeof(void *));
     return this;
 }
 

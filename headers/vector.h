@@ -2,15 +2,6 @@
 #define VECTOR_H
 #include "common.h"
 
-typedef enum _element_type {
-    PRIMITIVE,
-    OBJECT,
-} element_type;
-
-typedef enum _vector_defaults {
-    INIT_CAPACITY = 128,
-} vector_defaults;
-
 typedef struct _vector{
     element_type type;
     size_t template_size;
